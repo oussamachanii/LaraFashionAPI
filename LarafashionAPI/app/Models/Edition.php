@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Size;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Model;
@@ -16,5 +18,13 @@ class Edition extends Model
     }
     public function purchases(){
        return  $this->hasMany(Purchase::class);
+    }
+    public function colors()
+    {
+      return $this->belongsToMany(Color::class);
+    }
+    public function sizes()
+    {
+      return $this->belongsToMany(Size::class);
     }
 }

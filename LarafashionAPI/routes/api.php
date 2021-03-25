@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::prefix('v1')->group( function ()
+{
+    Route::get('login', [AuthController::class,'login']);
+    Route::get('register', [AuthController::class,'register']);
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::middleware('admin')->group(function ()
+        {
+            # code...
+            Route::get('users/', function () {
+               return User::all();
+           });
+        });
+    });
 });

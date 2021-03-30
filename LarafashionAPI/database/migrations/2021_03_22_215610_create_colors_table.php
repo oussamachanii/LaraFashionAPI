@@ -17,6 +17,7 @@ class CreateColorsTable extends Migration
             $table->id();
             $table->string("color_Hex");
             $table->timestamps();
+            $table->foreignId('product_id')->cascadeOnDelete()->constrained();
         });
     }
 

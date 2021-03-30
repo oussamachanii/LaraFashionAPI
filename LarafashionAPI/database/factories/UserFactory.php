@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'city' => $this->faker->city,
             'address' => $this->faker->address,
             'code_postal' => $this->faker->postcode,
-            'email' => $this->faker->email,
+            'email' => $this->faker->unique()->email,
             'is_admin' => false,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'remember_token' => Str::random(10),

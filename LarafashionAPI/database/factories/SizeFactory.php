@@ -22,9 +22,10 @@ class SizeFactory extends Factory
     public function definition()
     {
 
-        $sizes = array('XS','S','M','L','XL');
+        // $sizes = array('XS','S','M','L','XL');
         return [
-            'title'=> $sizes[rand(0,4)],
+            'title'=> $this->faker->randomLetter,
+            'product_id'=> rand(1,10000),
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -21,10 +22,14 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {   
-        $categories=array('Dress','Jacket','T-shirt','Coat','Outerwear',);
+        // $categories=array('Dress','Jacket','T-shirt','Coat','Outerwear','Hoodies','blouse','jeans','blazer');
         return [
 
-            'title'=> $categories[rand(0,4)],
+            // 'title'=> $categories[$this->faker->unique()->randomDigit],
+            // randomElement([1, 3, 5, 7, 9])
+            // 'title'=> $this->faker->randomElement('Dress','Jacket','T-shirt','Coat','Outerwear','Hoodies','blouse','jeans','blazer')
+            'title'=> $this->faker->unique()->word
+            
             
         ];
     }

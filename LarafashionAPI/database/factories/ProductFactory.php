@@ -30,8 +30,8 @@ class ProductFactory extends Factory
             'sex' => rand(0 ,2) ,
             'views' => rand(0 ,200) ,
             'discount' => 0 ,
-            // 'category_id' => rand(1,10) ,
-            'category_id' => 1 ,
+            'category_id' => rand(1,9) ,
+            // 'category_id' => 1 ,
                             
         ];
     }

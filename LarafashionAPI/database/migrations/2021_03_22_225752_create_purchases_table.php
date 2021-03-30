@@ -18,7 +18,9 @@ class CreatePurchasesTable extends Migration
             $table->integer('quantity');
             $table->integer('total_price');
             $table->foreignId('user_id')->nullOnDelete()->constrained();
-            $table->foreignId('edition_id')->nullOnDelete()->constrained();
+            $table->foreignId('size_id')->nullOnDelete()->constrained();
+            $table->foreignId('color_id')->nullOnDelete()->constrained();
+            $table->foreignId('product_id')->nullOnDelete()->constrained();
             $table->timestamps();
         });
     }

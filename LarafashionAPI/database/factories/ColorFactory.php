@@ -22,7 +22,8 @@ class ColorFactory extends Factory
     public function definition()
     {
         return [
-            'color_hex' => '#'.rand(100000 , 999999)
+            'color_hex' => $this->faker->hexcolor,
+            'product_id' => rand(1,10000)
         ];
     }
 }

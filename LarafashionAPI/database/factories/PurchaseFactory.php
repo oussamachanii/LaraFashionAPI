@@ -25,7 +25,9 @@ class PurchaseFactory extends Factory
             'quantity'=> rand(1,10),
             'total_price'=> rand(1,200),
             'user_id'=> rand(1,99),
-            'edition_id'=> rand(1,9999),
+            'color_id'=> rand(1,10),
+            'size_id'=> rand(1,4),
+            'product_id'=> rand(1,9999),
         ];
     }
 }

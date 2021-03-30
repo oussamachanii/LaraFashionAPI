@@ -17,6 +17,7 @@ class CreateSizesTable extends Migration
             $table->id();
             $table->string('title');
             $table->timestamps();
+            $table->foreignId('product_id')->cascadeOnDelete()->constrained();
         });
     }
 

@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             // $table->string('title')->unique();
             $table->string('title');
             $table->string('description');
-            $table->integer('price')->nullable();
+            $table->decimal('price',8,2)->nullable();
             $table->Integer('shipping')->nullable();
             $table->tinyInteger('sex')->default(2);
             // $table->tinyInteger('rating')->default(0);

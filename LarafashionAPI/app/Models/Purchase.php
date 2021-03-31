@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Purchase extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'quantity',
+        'total_price',
+        'user_id',
+        'size_id',
+        'color_id',
+        'product_id',
+    ];
     public function user(){
         return $this->belongsTo(User::class);
     }

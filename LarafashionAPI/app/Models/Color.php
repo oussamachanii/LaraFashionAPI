@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Color extends Model
 {
-    use HasFactory;
+    use HasFactory; 
+    protected $fillable=[
+      'color_Hex'
+  ];
+
 
     public function product()
     {

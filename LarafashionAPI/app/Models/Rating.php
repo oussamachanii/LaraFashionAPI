@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Rating extends Model
 {
     use HasFactory;
+    protected $fillable=[
+      'number',
+      'product_id',
+      'user_id',
+  ];
 
     public function product()
     {

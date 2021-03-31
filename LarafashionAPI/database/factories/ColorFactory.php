@@ -23,7 +23,7 @@ class ColorFactory extends Factory
     {
         return [
             'color_hex' => $this->faker->hexcolor,
-            'product_id' => rand(1,10000)
+            'product_id' => rand(1,10)
         ];
     }
 }

@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Rating;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RatingFactory extends Factory
+class ImageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Rating::class;
+    protected $model = Image::class;
 
     /**
      * Define the model's default state.
@@ -22,9 +22,8 @@ class RatingFactory extends Factory
     public function definition()
     {
         return [
-            'number'=> rand(1,5),
+            'url'=> 'images/GKEOt2qB6FlBPO4uP82iofuzmo4VUBZcGlzAckAM.jpg',
             'product_id'=> rand(1,10),
-            'user_id'=> rand(1,99),
         ];
     }
 }

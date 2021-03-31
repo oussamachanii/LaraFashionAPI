@@ -25,7 +25,7 @@ class SizeFactory extends Factory
         // $sizes = array('XS','S','M','L','XL');
         return [
             'title'=> $this->faker->randomLetter,
-            'product_id'=> rand(1,10000),
+            'product_id'=> rand(1,10),
         ];
     }
 }

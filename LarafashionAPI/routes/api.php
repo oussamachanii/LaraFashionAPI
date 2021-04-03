@@ -3,8 +3,12 @@
 // use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\HomePageController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +26,24 @@ use App\Http\Controllers\Api\V1\AuthController;
 // });
 
 Route::prefix('v1')->group( function ()
-{
-    Route::get('login', [AuthController::class,'login']);
-    Route::get('register', [AuthController::class,'register']);
+{   
+    
+    //Home page routes
+    Route::get('trend/', [HomePageController::class,'trend']);
+    Route::get('deals/', [HomePageController::class,'deals']);
+    Route::get('rated/', [HomePageController::class,'rated']);
+    //Auth
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('register', [AuthController::class,'register']);
+    // Route::get('category/{id?}/{type}', [HomePageController::class,'show']);
+    //Protected Auth Routes
     Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('getUserByToken', [AuthController::class,'getUserByToken']);
         Route::middleware('admin')->group(function ()
         {
-            # code...
-            Route::get('users/', function () {
-               return User::all();
-           });
+        //     Route::get('user/', function () {
+        //        return User::all();
+        //    });
         });
     });
 });

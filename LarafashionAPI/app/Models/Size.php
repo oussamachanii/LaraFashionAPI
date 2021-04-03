@@ -18,5 +18,9 @@ class Size extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function shortInfo()
+    {
+    return $this->only(['id','title','product_id']);
+    }
 }
 

@@ -18,5 +18,11 @@ class Color extends Model
     {
       return $this->belongsTo(Product::class);
     }
+    public function shortInfo()
+    {
+      // return ['id'=> $this->id,'hex'=> $this->color_Hex];
+      return $this->only('id','color_Hex');
+    }
+
 }
 

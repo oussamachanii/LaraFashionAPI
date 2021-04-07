@@ -24,6 +24,14 @@ class Rating extends Model
     {
        return  $this->belongsTo(User::class);
     }
+    public static function calculateRating($product)
+    { 
+       $number=0;
+       foreach ($product->ratings as $rating) {
+         $number = $number + $rating->number;
+       }
     
+      return ['stars'=> number_format($number/count($product->ratings))+0 ,'times'=>count($product->ratings)];
+    }
 
 }

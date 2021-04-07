@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory , SoftDeletes;
+
+
+    
     
     protected $fillable = [
         'title',
@@ -26,6 +29,7 @@ class Product extends Model
         'discount_start_date',
         'discount_end_date',
     ];
+   
     public function category(){
        return  $this->belongsTo(Category::class);
     }
@@ -43,41 +47,42 @@ class Product extends Model
     public function ratings(){
        return  $this->hasMany(Rating::class);
     }
-    public function shortInfo(){
-       return  $this->only(['id','title','description','price','shipping','sex','views','discount','discount_start_date','discount_end_date',]);
-    }
-    public function baseInfo(){
-       return  [
-          'data'=>$this->shortInfo() ,
-      //  'image'=>$this->images->first()->shortInfo() ? $this->images[0]->shortInfo() : null,
-       'image'=>is_null($this->images->first())? []:$this->images->first()->shortInfo(),
-       'sizes'=>$this->sizes->map(function($size){
-           return $size->shortInfo();
-       }) ,
-       'colors'=>$this->colors->map(function($color){
-           return $color->shortInfo();
-       }) ,
-       'rating'=> $this->calculateRating()
+   //  public function shortInfo(){
+   //     return  $this->only(['id','title','description','price','shipping','sex','views','discount','discount_start_date','discount_end_date',]);
+   //  }
+   //  public function baseInfo(){
+   //     return  [
+   //        'data'=>$this->shortInfo() ,
+   //    //  'image'=>$this->images->first()->shortInfo() ? $this->images[0]->shortInfo() : null,
+   //     'image'=>is_null($this->images->first())? []:$this->images->first()->shortInfo(),
+   //     'sizes'=>$this->sizes->map(function($size){
+   //         return $size->shortInfo();
+   //     }) ,
+   //     'colors'=>$this->colors->map(function($color){
+   //         return $color->shortInfo();
+   //     }) ,
+   //     'rating'=> $this->calculateRating()
        
-      ];
-    }
-    public function calculateRating()
-    { 
-       $number=0;
-       $i=0;
-       $ratings =$this->ratings;
-      //  $ratings->each(function($rating){
-      //    $i++;
-      //    $number = $number + $rating->number;
-      //  });
-       foreach ($ratings as $rating) {
-         $i++;
-         $number = $number + $rating->number;
-       }
-       if ($i == 0) {
-          return 0 ;
-       }
-      return ['stars'=> number_format($number/$i)+0 ,'times'=>$i];
-    }
+   //    ];
+   //  }
+   //  public function calculateRating()
+   //  { 
+   //     $number=0;
+   //     $i=0;
+   //     $ratings =$this->ratings;
+   //    //  $ratings->each(function($rating){
+   //    //    $i++;
+   //    //    $number = $number + $rating->number;
+   //    //  });
+   //     foreach ($ratings as $rating) {
+   //       $i++;
+   //       $number = $number + $rating->number;
+   //     }
+   //     if ($i == 0) {
+   //        return 0 ;
+   //     }
+   //    return ['stars'=> number_format($number/$i)+0 ,'times'=>$i];
+   //  }
+ 
 }
 

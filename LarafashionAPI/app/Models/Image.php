@@ -14,9 +14,9 @@ class Image extends Model
     public function product(){
       return   $this->belongsTo(Product::class);
     }
-    public function shortInfo()
-    {
-      return ['id'=> $this->id,'src'=> Storage::url($this->url)];
+    // public function shortInfo()
+    // {
+    //   return ['id'=> $this->id,'src'=> Storage::url($this->url)];
       
-    }
+    // }
 }

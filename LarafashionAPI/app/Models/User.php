@@ -57,5 +57,17 @@ class User extends Authenticatable
     public function rating(){
         return $this->hasMany(Rating::class);
     }
-    
+    public function scopeSearch($query)
+    {
+            $query->where('first_name', 'LIKE', '%'.request('search').'%')
+            ->orWhere('last_name', 'LIKE', '%'.request('search').'%')
+            ->orWhere('email', 'LIKE', '%'.request('search').'%')
+            ->orWhere('country', 'LIKE', '%'.request('search').'%')
+            ->orWhere('region', 'LIKE', '%'.request('search').'%')
+            ->orWhere('city', 'LIKE', '%'.request('search').'%')
+            ->orWhere('address', 'LIKE', '%'.request('search').'%')
+            ->orWhere('code_postal', 'LIKE', '%'.request('search').'%')
+            ;
+            return $query;
+    }
 }

@@ -82,17 +82,9 @@ class ProductController extends Controller
             // return $products->map(function ($product){return $product->baseInfo(); });      
             return ProductResource::collection(Product::find($request->ids));
     }
-    public function search()
+    public function search(Request $request)
     {
-        // $products = collect(Product::paginate(4)); 
-        // $ids = collect($products['data'])->map(function($product){return $product['id'];});
-        // $products['data']= collect( Product::find($ids))->map(function ($product){return $product->baseInfo(); });
-        
-        // return [
-        //     'products'=> $products,
-        //     'categories'=> Category::select(['title'])->withCount('products')->orderByDesc('products_count')->take(5)->get() ,
-        // ];
-        return  ProductResource::collection(Product::all());
+        return  ProductResource::collection(Product::filter()->paginate($request->pagination ?? 10));
     }
 }
 

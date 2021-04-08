@@ -47,6 +47,32 @@ class Product extends Model
     public function ratings(){
        return  $this->hasMany(Rating::class);
     }
+    public function scopeFilter($query)
+   {
+         if (request('title')) {
+            $query->where('title', 'LIKE', '%'.request('title').'%');
+         }
+         if (request('min')) {
+            $query->where('price', '>=', request('min'));
+         }
+         if (request('max')) {
+            $query->where('price', '<=', request('max'));
+         }
+         if (request('rating')) {
+            // $query->where('rating', '==', request('rating'));
+            $query->with('ratings')->whereHas('ratings',function($rating){$rating->where('number','=',request('rating'));});
+         }
+         if (request('category')) {
+            $query->where('category_id', '=', request('category'));
+         }
+         if (request('size')) {
+            $query->with('sizes')->whereHas('sizes',function($size){$size->where('id','=',request('size'));});
+         }
+         if (request('sex')) {
+            $query->where('sex', '=', request('sex'));
+         }
+            return $query;
+         }
    //  public function shortInfo(){
    //     return  $this->only(['id','title','description','price','shipping','sex','views','discount','discount_start_date','discount_end_date',]);
    //  }

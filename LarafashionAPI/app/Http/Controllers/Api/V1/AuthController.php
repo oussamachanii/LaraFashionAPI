@@ -44,5 +44,11 @@ class AuthController extends Controller
                 'user'=>  auth()->user(),
             ];
     }
+  
+    public function logout()
+    {
+            return auth()->user()->tokens()->delete();
+    }
+  
    
 }

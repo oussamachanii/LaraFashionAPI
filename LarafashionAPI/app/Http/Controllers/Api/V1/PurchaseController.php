@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PurchaseResource;
 
 class PurchaseController extends Controller
 {
@@ -13,9 +14,12 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->search) {
+            return PurchaseResource::collection(Purchase::orderByDesc('created_at')->search()->paginate($request->pagination ?? 50));
+        }
+        return PurchaseResource::collection(Purchase::orderByDesc('created_at')->paginate($request->pagination ?? 50));
     }
 
     /**
@@ -58,8 +62,8 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Purchase $purchase)
     {
-        //
+        return $purchase->delete();
     }
 }

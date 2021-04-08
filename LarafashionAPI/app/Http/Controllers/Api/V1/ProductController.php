@@ -40,18 +40,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // return response()->json($product->baseInfo());
-        // return response()->json((object) ['product'=>$product , 'images'=> $product->images]);
-        // return response()->json((object) [
-        //     'product'=>$product->shortInfo() ,
-        //     'sizes'=> $product->sizes->map(function ($image){return $image->shortInfo();}),
-        //     'colors'=> $product->colors->map(function ($color){return $color->shortInfo();}),
-        //     'images'=> $product->images->map(function ($image){return $image->shortInfo();}),
-        //     'rating'=> $product->calculateRating(),
-        
-        
-        // ]);
-        return ProductResource::collection($product);
+        return ProductResource::collection([$product]);
+        // return $product;
     }
 
     /**
@@ -74,7 +64,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
     public function bag(Request $request)
     {

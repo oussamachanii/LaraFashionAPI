@@ -49,6 +49,29 @@ class AuthController extends Controller
     {
             return auth()->user()->tokens()->delete();
     }
+    public function changePassword(Request $request)
+    {
+        return $request;
+        $request->validate([
+            'current_password' => 'required|',
+            'password' => 'required|min:6|max:25',
+            'password_confirmation' => 'required|confirmed',
+        ]);
+        $user = User::find(auth()->user()->id);
+        if (Hash::check($request->current_password, $user->password)) {
+            return $user->update(['password'=>bcrypt($request->password)]);
+        }
+        return response()->json([
+            "message"=> "The given data was invalid !",
+            "errors"=> [
+                "password"=> [
+                    "The password not correct"
+                ],
+            ]
+               
+        ],422);
+
+    }
   
    
 }

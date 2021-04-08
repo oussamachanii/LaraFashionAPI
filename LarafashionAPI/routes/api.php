@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\PurchaseController;
 use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\SizeController;
+use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\ImageController;
 use App\Models\Category;
 use App\Models\Product;
@@ -43,21 +44,26 @@ Route::prefix('v1')->group( function ()
     Route::post('login', [AuthController::class,'login']);
     Route::post('register', [AuthController::class,'register']);
     // Route::get('category/{id?}/{type}', [HomePageController::class,'show']);
-    route::apiResource('product',ProductController::class);
-    route::apiResource('purchase',PurchaseController::class);
-    route::apiResource('category',CategoryController::class)->except(['update','show']);
-    route::apiResource('size',SizeController::class)->except(['update','show']);
+    route::apiResource('product',ProductController::class)->only(['show']);
+    
+    route::apiResource('category',CategoryController::class)->only(['index','show']);
+    route::apiResource('size',SizeController::class)->only(['index','show']);
     route::get('bag',[ProductController::class,'bag']);
     route::get('search/',[ProductController::class,'search']);
     //Protected Auth Routes
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('logout', [AuthController::class,'logout']);
         Route::post('getUserByToken', [AuthController::class,'getUserByToken']);
+        Route::put('user/password', [AuthController::class,'changePassword']);
+        Route::apiResource('purchase',PurchaseController::class)->only('store');
+        route::apiResource('user',UserController::class)->only('show');
         Route::middleware('admin')->group(function ()
         {
-        //     Route::get('user/', function () {
-        //        return User::all();
-        //    });
+            route::apiResource('product',ProductController::class)->except(['show']);
+            route::apiResource('purchase',PurchaseController::class)->except('store');
+            route::apiResource('user',UserController::class)->except('show');
+            route::apiResource('category',CategoryController::class)->except(['index','show']);
+            route::apiResource('size',SizeController::class)->except(['index','show']);
         });
     });
 });

@@ -35,9 +35,7 @@ class SizeController extends Controller
         $request->validate(['title'=>'required','product_id'=>'required']);
         $size = Size::create(['title'=>$request->title,'product_id'=>$request->product_id]);
         return SizeResource::collection([$size]);
-        $request->validate(['title'=>'required','product_id'=>'required']);
-        $size = Size::create(['title'=>$request->title,'product_id'=>$request->product_id]);
-        return SizeResource::collection([$size]);
+     
     }
 
     /**

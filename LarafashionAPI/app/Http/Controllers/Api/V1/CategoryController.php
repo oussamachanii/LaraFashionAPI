@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::all()); 
+        return CategoryResource::collection(Category::orderByDesc('created_at')->get()); 
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return CategoryResource::collection([Category::create($request->only(['title']))]);
     }
 
     /**
@@ -61,6 +61,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        return $category->delete();
     }
 }

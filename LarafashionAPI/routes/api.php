@@ -2,21 +2,16 @@
 
 // use Illuminate\Http\Request;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\CategoryController;
-use App\Http\Controllers\Api\V1\HomePageController;
-use App\Http\Controllers\Api\V1\ProductController;
-use App\Http\Controllers\Api\V1\PurchaseController;
-use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\SizeController;
 use App\Http\Controllers\Api\V1\UserController;
-use App\Http\Controllers\ImageController;
-use App\Models\Category;
-use App\Models\Product;
+use App\Http\Controllers\Api\V1\ImageController;
+use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\HomePageController;
+use App\Http\Controllers\Api\V1\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +59,10 @@ Route::prefix('v1')->group( function ()
             route::apiResource('user',UserController::class)->except('show');
             route::apiResource('category',CategoryController::class)->except(['index','show']);
             route::apiResource('size',SizeController::class)->except(['index','show']);
+            route::apiResource('color',ColorController::class);
+            route::post('image/{product}',[ImageController::class,'store']);
+            route::apiResource('image',ImageController::class)->only(['index','destroy']);
+            // route::apiResource('color',ColorController::class)->except([,'show']);
         });
     });
 });

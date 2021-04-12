@@ -7,6 +7,7 @@ use App\Models\Color;
 use App\Models\Image;
 use App\Models\Rating;
 use App\Models\Category;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,9 +23,11 @@ class Product extends Model
         'title',
         'description',
         'price',
+        'quantity',
         'shipping',
         'sex',
         'views',
+        'category_id',
         'discount',
         'discount_start_date',
         'discount_end_date',
@@ -46,6 +49,9 @@ class Product extends Model
     }
     public function ratings(){
        return  $this->hasMany(Rating::class);
+    }
+    public function purchases(){
+       return  $this->hasMany(Purchase::class);
     }
     public function scopeFilter($query)
    {
@@ -73,42 +79,25 @@ class Product extends Model
          }
             return $query;
          }
-   //  public function shortInfo(){
-   //     return  $this->only(['id','title','description','price','shipping','sex','views','discount','discount_start_date','discount_end_date',]);
-   //  }
-   //  public function baseInfo(){
-   //     return  [
-   //        'data'=>$this->shortInfo() ,
-   //    //  'image'=>$this->images->first()->shortInfo() ? $this->images[0]->shortInfo() : null,
-   //     'image'=>is_null($this->images->first())? []:$this->images->first()->shortInfo(),
-   //     'sizes'=>$this->sizes->map(function($size){
-   //         return $size->shortInfo();
-   //     }) ,
-   //     'colors'=>$this->colors->map(function($color){
-   //         return $color->shortInfo();
-   //     }) ,
-   //     'rating'=> $this->calculateRating()
-       
-   //    ];
-   //  }
-   //  public function calculateRating()
-   //  { 
-   //     $number=0;
-   //     $i=0;
-   //     $ratings =$this->ratings;
-   //    //  $ratings->each(function($rating){
-   //    //    $i++;
-   //    //    $number = $number + $rating->number;
-   //    //  });
-   //     foreach ($ratings as $rating) {
-   //       $i++;
-   //       $number = $number + $rating->number;
-   //     }
-   //     if ($i == 0) {
-   //        return 0 ;
-   //     }
-   //    return ['stars'=> number_format($number/$i)+0 ,'times'=>$i];
-   //  }
- 
+         public function scopeDiscount($query)
+         {
+            return $query->where('discount_start_date','<=',now())->where('discount_end_date','>=',now());
+         }
+         public static function  isOnDiscount($product)
+         {
+            
+            if ($product->discount < 0 || $product->discount_start_date > date("Y-m-d") || $product->discount_end_date < date("Y-m-d")) {
+               return false;
+           }
+           return true;
+         }
+         public function scopeSearch($query)
+         {
+            $query->where('title', 'LIKE', '%'.request('search').'%')
+            ->orWhere('price', '=', request('search'))
+            ->orWhere('quantity', '=', request('search'))
+            ;
+            return $query;
+         }
 }
 

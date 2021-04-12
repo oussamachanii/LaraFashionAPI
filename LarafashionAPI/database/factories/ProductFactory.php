@@ -27,6 +27,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence(20) ,
             'price' =>  rand(10,300),
             'shipping' => rand(0 ,20) ,
+            'quantity' => rand(0 ,200) ,
             'sex' => rand(0 ,2) ,
             'views' => rand(0 ,200) ,
             'discount' => rand(10,50) ,

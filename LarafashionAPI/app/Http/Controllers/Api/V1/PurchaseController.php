@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,8 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        $product = Product::findOrFail($request->product_id);
+        $product->update(['quantity'=>$request->quantity-$request->quantity]);
         return Purchase::create($request->only(['quantity','total_price','user_id','size_id','color_id','product_id']));
     }
 

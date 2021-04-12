@@ -12,7 +12,8 @@ class Size extends Model
     use HasFactory;
 
     protected $fillable=[
-        'title'
+        'title',
+        'product_id',
     ];
 
     public function product()

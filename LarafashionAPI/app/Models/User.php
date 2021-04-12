@@ -66,7 +66,7 @@ class User extends Authenticatable
             ->orWhere('region', 'LIKE', '%'.request('search').'%')
             ->orWhere('city', 'LIKE', '%'.request('search').'%')
             ->orWhere('address', 'LIKE', '%'.request('search').'%')
-            ->orWhere('code_postal', 'LIKE', '%'.request('search').'%')
+            ->orWhere('code_postal', '=', request('search'))
             ;
             return $query;
     }

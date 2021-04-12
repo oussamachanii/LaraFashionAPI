@@ -11,7 +11,8 @@ class Color extends Model
 {
     use HasFactory; 
     protected $fillable=[
-      'color_Hex'
+      'color_Hex',
+      'product_id',
   ];
 
 

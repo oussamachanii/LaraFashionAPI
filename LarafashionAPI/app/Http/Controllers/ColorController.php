@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers;
 
-use App\Models\Size;
+use App\Http\Resources\ColorResource;
+use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\SizeResource;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
-class SizeController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class SizeController extends Controller
     {
         if ($request->productId) {
             # code...
-            return SizeResource::collection(Product::find($request->productId)->sizes);
+            return ColorResource::collection(Product::find($request->productId)->colors);
         }
-        return SizeResource::collection(Size::all());
+        return ColorResource::collection(Color::all());
     }
 
     /**
@@ -32,12 +32,9 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['title'=>'required','product_id'=>'required']);
-        $size = Size::create(['title'=>$request->title,'product_id'=>$request->product_id]);
-        return SizeResource::collection([$size]);
-        $request->validate(['title'=>'required','product_id'=>'required']);
-        $size = Size::create(['title'=>$request->title,'product_id'=>$request->product_id]);
-        return SizeResource::collection([$size]);
+        $request->validate(['color_Hex'=>'required','product_id'=>'required']);
+        $color = Color::create(['color_Hex'=>'#'.$request->color_Hex,'product_id'=>$request->product_id]);
+        return ColorResource::collection([$color]);
     }
 
     /**
@@ -69,8 +66,8 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Size $Size)
+    public function destroy(Color $color)
     {
-        return $Size->delete();
+        return $color->delete();
     }
 }

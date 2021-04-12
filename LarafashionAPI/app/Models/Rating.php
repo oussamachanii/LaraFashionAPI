@@ -30,8 +30,11 @@ class Rating extends Model
        foreach ($product->ratings as $rating) {
          $number = $number + $rating->number;
        }
-    
-      return ['stars'=> number_format($number/count($product->ratings))+0 ,'times'=>count($product->ratings)];
+       if (count($product->ratings) > 0) {
+         # code...
+         return ['stars'=> number_format($number/count($product->ratings))+0 ,'times'=>count($product->ratings)];
+       }
+         return ['stars'=>0,'times'=>0];
     }
 
 }

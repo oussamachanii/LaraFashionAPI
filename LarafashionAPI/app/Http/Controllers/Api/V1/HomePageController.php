@@ -23,7 +23,7 @@ class HomePageController extends Controller
     {
         // $products = Product::orderByDesc('discount')->with(['sizes','colors','images'])->where('discount_start_date','<',now())->where('discount_end_date','>=',now())->take(4)->get();
         // return response()->json($products->map(function($product){return $product->baseInfo();}));
-        return ProductResource::collection(Product::orderByDesc('discount')->where('discount_start_date','<',now())->where('discount_end_date','>=',now())->take(4)->get());
+        return ProductResource::collection(Product::orderByDesc('discount')->discount()->take(4)->get());
     }
     public function rated()
     {
